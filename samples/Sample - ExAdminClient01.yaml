@@ -1,0 +1,193 @@
+ServerName: ExAdminClient01
+InstallIISFeatures: false
+Prereqs:
+- ModuleName: DotNetFramework
+  DotNetFrameworkVersion: 4.8
+  DotNetFrameworkUrl: https://go.microsoft.com/fwlink/?linkid=2088631
+  PackagePath: 
+  Arguments: /quiet /norestart
+- ModuleName: CppRedistributables
+  CppRedistVersion: 14.4
+  Architecture: x86
+  CppRedistUrl: https://aka.ms/vs/17/release/vc_redist.x86.exe
+  PackagePath: 
+  Arguments: /quiet /norestart
+- ModuleName: CppRedistributables
+  CppRedistVersion: 14.4
+  Architecture: x64
+  CppRedistUrl: https://aka.ms/vs/17/release/vc_redist.x64.exe
+  PackagePath: 
+  Arguments: /quiet /norestart
+Modules:
+- ModuleName: Diagnostics Components
+  PackagePath: E:\Installs\Diagnostics Components\Hyland Diagnostics Components.msi
+  LogPath: E:\Installs\Diagnostics Components\Hyland Diagnostics Components.log
+  DiagServiceFeature:
+    FeatureName: Diagnostics_Service
+    InstallPath: E:\Program Files (x86)\Hyland\Services\Diagnostics
+  DiagConsoleFeature:
+    CreateDesktopShortcuts: true
+    CreateMenuShortcuts: true
+    FeatureName: Diagnostics_Console
+    InstallPath: E:\Program Files (x86)\Hyland\Diagnostics Console
+  Quiet: true
+  AdditionalArgs: 
+- ModuleName: OnBase Configuration
+  PackagePath: E:\Installs\OnBase Configuration\Hyland OnBase Configuration.msi
+  LogPath: E:\Installs\OnBase Configuration\Hyland OnBase Configuration.log
+  ConfigurationFeature:
+    DataSource: OnBase
+    CommandLine: -ROMANZO -DGTAPPLY
+    SystemOdbc: true
+    CreateDesktopShortcuts: true
+    CreateMenuShortcuts: true
+    FeatureName: OnBaseConfig
+    InstallPath: E:\Program Files (x86)\Hyland\OnBase Configuration
+  Quiet: true
+  AdditionalArgs: 
+- ModuleName: OnBase Studio x64
+  PackagePath: E:\Installs\OnBase Studio x64\Hyland OnBase Studio x64.msi
+  LogPath: E:\Installs\OnBase Studio x64\Hyland OnBase Studio x64.log
+  StudioFeature:
+    CreateDesktopShortcuts: true
+    CreateMenuShortcuts: true
+    FeatureName: Workflow_Studio
+    InstallPath: E:\Program Files\Hyland\OnBase Studio
+  ConnectionStrings:
+  - ConnectionName: OnBase
+    Datasource: .\
+    Database: OnBase
+    UseIntegratedSecurity: false
+    Credentials:
+      Username: hsi
+      CredentialType: Database
+      BasesKey: V3mVrGIJqY8dC8q3OnOvCQ==
+    Encrypt: Optional
+    ProviderType: System_Data_SqlClient
+    AdditionalArguments: ''
+  - ConnectionName: OnBase2
+    Datasource: .\
+    Database: OnBase
+    UseIntegratedSecurity: false
+    Credentials:
+      Username: hsi
+      CredentialType: Database
+      BasesKey: V3mVrGIJqY8dC8q3OnOvCQ==
+    Encrypt: Strict
+    ProviderType: System_Data_SqlClient
+    AdditionalArguments: ''
+  Wamcon:
+    WAMCONFiles: E:\Program Files (x86)\Hyland\Web Applications Management Console
+    CreateDesktopShortcuts: true
+    CreateMenuShortcuts: true
+  Quiet: true
+  AdditionalArgs: 
+- ModuleName: OnBase Client
+  PackagePath: E:\Installs\OnBase Client\Hyland OnBase Client.msi
+  LogPath: 
+  OnBaseClientFeature:
+    DataSource: OnBase
+    CommandLine: -ROMANZO
+    SystemOdbc: true
+    CreateDesktopShortcuts: true
+    CreateMenuShortcuts: true
+    FeatureName: OnBaseThickClient
+    InstallPath: E:\Program Files (x86)\Hyland\OnBase Client
+  MailServicesFeature:
+    FeatureName: MailServices
+    InstallPath: NOT_USED
+  ClientAPIFeature:
+    FeatureName: ThickClientAPILocal
+    InstallPath: NOT_USED
+  DCOMFeature:
+    ServiceMachine: OBPROC01
+    DCOMUser: AdminUser
+    FeatureName: Thick_API_DCOM
+    InstallPath: NOT_USED
+  Quiet: true
+  AdditionalArgs: 
+- ModuleName: Unity Management Console
+  PackagePath: E:\Installs\Unity Management Console\Hyland Unity Management Console.msi
+  LogPath: E:\Installs\Unity Management Console\Hyland Unity Management Console.log
+  ManagementConsoleFeature:
+    CreateDesktopShortcuts: true
+    CreateMenuShortcuts: true
+    FeatureName: UnityManagementConsole
+    InstallPath: E:\Program Files (x86)\Hyland\Unity Management Console
+  Quiet: true
+  AdditionalArgs: 
+- ModuleName: Unity Client
+  PackagePath: E:\Installs\Unity Client\Hyland Unity Client.msi
+  LogPath: E:\Installs\Unity Client\Hyland Unity Client.log
+  ServiceLocations:
+  - ServicePath: http://ob-app-01/appserver64/service.asmx
+    DataSource: OnBase
+    FriendlyName: OnBase 24
+    AuthenticationType: Standard
+    DefaultDomain: 
+    UseInstitution: false
+    IdpUrl: 
+    IdpClientId: 
+  - ServicePath: http://ob-app-01/appserver64/service.asmx
+    DataSource: OnBase
+    FriendlyName: OnBase 24 (IdP)
+    AuthenticationType: Idp
+    DefaultDomain: 
+    UseInstitution: false
+    IdpUrl: https://idpserver/idp
+    IdpClientId: 151b9fd0-41ff-42b4-9838-85094bb949dc
+  UnityClientFeature:
+    CreateDesktopShortcuts: true
+    CreateMenuShortcuts: true
+    OverwriteConfigFile: false
+    UnityConfigSourcePath: 
+    DefaultMailClient: 
+    DocPopUrl: 
+    PreventLaunchOnStartup: true
+    AddToPath: false
+    FeatureName: Unity_Client
+    InstallPath: E:\Program Files (x86)\Hyland\Unity Client
+  UnityClientAutomationFeature:
+    FeatureName: UnityClientAutomation
+    InstallPath: NOT_USED
+  UnityPopFeature:
+    Upop: disabled
+    FeatureName: UnityPopAutomation
+    InstallPath: NOT_USED
+  ApplicationEnablerFeature:
+    AEConfigFile: '\\Networkshare\Configfile.xml'
+    HTTPAutomation: false
+    HTTPSAutomation: false
+    HTTPAutomationPort: ''
+    HTTPSAutomationPort: ''
+    FeatureName: Unity_Application_Enabler
+    InstallPath: NOT_USED
+  Quiet: true
+  AdditionalArgs: 
+- ModuleName: AE Configuration
+  PackagePath: E:\Installs\Application Enabler Configuration\Hyland Application Enabler Configuration.msi
+  LogPath: E:\Installs\Application Enabler Configuration\Hyland Application Enabler Configuration.log
+  AEConfigFeature:
+    CreateDesktopShortcuts: true
+    CreateMenuShortcuts: true
+    FeatureName: Application_Enabler_Config
+    InstallPath: E:\Program Files (x86)\Hyland\Application Enabler\Config\
+  ServiceLocations:
+  - ServicePath: http://ob-app-01/appserver64/service.asmx
+    DataSource: OnBase
+    FriendlyName: OnBase 24
+    AuthenticationType: Standard
+    DefaultDomain: 
+    UseInstitution: false
+    IdpUrl: 
+    IdpClientId: 
+  - ServicePath: http://ob-app-01/appserver64/service.asmx
+    DataSource: OnBase
+    FriendlyName: OnBase 24 (IdP)
+    AuthenticationType: Idp
+    DefaultDomain: 
+    UseInstitution: false
+    IdpUrl: https://idpserver/idp
+    IdpClientId: f37c117a-50c8-4d55-bc93-9cf2584a7028
+  Quiet: true
+  AdditionalArgs: 

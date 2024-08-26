@@ -1,0 +1,71 @@
+ServerName: ExWebServer01
+InstallIISFeatures: true
+Prereqs:
+- ModuleName: DotNetFramework
+  DotNetFrameworkVersion: 4.8
+  DotNetFrameworkUrl: https://go.microsoft.com/fwlink/?linkid=2088631
+  PackagePath: 
+  Arguments: /quiet /norestart
+- ModuleName: CppRedistributables
+  CppRedistVersion: 14.4
+  Architecture: x86
+  CppRedistUrl: https://aka.ms/vs/17/release/vc_redist.x86.exe
+  PackagePath: 
+  Arguments: /quiet /norestart
+- ModuleName: CppRedistributables
+  CppRedistVersion: 14.4
+  Architecture: x64
+  CppRedistUrl: https://aka.ms/vs/17/release/vc_redist.x64.exe
+  PackagePath: 
+  Arguments: /quiet /norestart
+Modules:
+- ModuleName: Web Server x64
+  PackagePath: E:\Installs\Web Server\Hyland Web Server 24.1 x64.msi
+  LogPath: E:\Installs\Application Server\Hyland Web Server 24.1 x64.log
+  WebServerFeature:
+    AppServerAppName: AppServer64
+    AppServerUrl: http://localhost/AppServer64/Service.rem
+    ServiceClientType: REMOTING
+    Datasource: OnBase
+    WebAppName: AppNet
+    WebAppHost: basesdev.com
+    UseNTAuth: false
+    UseImpersonation: true
+    IISCredentials:
+      Username: administrator
+      CredentialType: ActiveDirectory
+      BasesKey: +hQn8J1WLA3zAyUxh5M1YfEUQa4R8FzvGpt1vP75pGg=
+    IISWebsiteID: 1
+    ASPNetSetRegPath: E:\Program Files (x86)\aspnet_setreg
+    UseTLS: false
+    FeatureName: Web_Server
+    InstallPath: E:\inetpub\wwwroot\AppNet
+  WebServerHelpFiles:
+    FeatureName: Web_Server_Help
+    InstallPath: NOT_USED
+  Wamcon:
+    WAMCONFiles: E:\Program Files (x86)\Hyland\Web Applications Management Console
+    CreateDesktopShortcuts: true
+    CreateMenuShortcuts: true
+  Quiet: true
+  AdditionalArgs: 
+- ModuleName: Diagnostics Components
+  PackagePath: E:\Installs\Diagnostics Components\Hyland Diagnostics Components.msi
+  LogPath: E:\Installs\Diagnostics Components\Hyland Diagnostics Components.log
+  DiagServiceFeature:
+    FeatureName: Diagnostics_Service
+    InstallPath: E:\Program Files (x86)\Hyland\Services\Diagnostics
+  DiagConsoleFeature:
+    CreateDesktopShortcuts: true
+    CreateMenuShortcuts: true
+    FeatureName: Diagnostics_Console
+    InstallPath: E:\Program Files (x86)\Hyland\Diagnostics Console
+  Quiet: true
+  AdditionalArgs: 
+- ModuleName: Friendly ModuleName for the module
+  PackagePath: Specify the path to the installer
+  LogPath: Where to log the msi installer log
+  Quiet: true
+  AdditionalArgs:
+  - List Additional Args
+  - Use the MRG or documentation for your product to see what's supported

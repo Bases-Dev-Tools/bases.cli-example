@@ -1,0 +1,139 @@
+ServerName: ExProcServer01
+InstallIISFeatures: false
+Prereqs:
+- ModuleName: DotNetFramework
+  DotNetFrameworkVersion: 4.8
+  DotNetFrameworkUrl: https://go.microsoft.com/fwlink/?linkid=2088631
+  PackagePath: 
+  Arguments: /quiet /norestart
+- ModuleName: CppRedistributables
+  CppRedistVersion: 14.4
+  Architecture: x86
+  CppRedistUrl: https://aka.ms/vs/17/release/vc_redist.x86.exe
+  PackagePath: 
+  Arguments: /quiet /norestart
+- ModuleName: CppRedistributables
+  CppRedistVersion: 14.4
+  Architecture: x64
+  CppRedistUrl: https://aka.ms/vs/17/release/vc_redist.x64.exe
+  PackagePath: 
+  Arguments: /quiet /norestart
+Modules:
+- ModuleName: OnBase Configuration
+  PackagePath: E:\Installs\OnBase Configuration\Hyland OnBase Configuration.msi
+  LogPath: E:\Installs\OnBase Configuration\Hyland OnBase Configuration.log
+  ConfigurationFeature:
+    DataSource: OnBase
+    CommandLine: -ROMANZO -DGTAPPLY
+    SystemOdbc: true
+    CreateDesktopShortcuts: true
+    CreateMenuShortcuts: true
+    FeatureName: OnBaseConfig
+    InstallPath: E:\Program Files (x86)\Hyland\OnBase Configuration
+  Quiet: true
+  AdditionalArgs: 
+- ModuleName: OnBase Client
+  PackagePath: E:\Installs\OnBase Client\Hyland OnBase Client.msi
+  LogPath: 
+  OnBaseClientFeature:
+    DataSource: OnBase
+    CommandLine: -ROMANZO
+    SystemOdbc: true
+    CreateDesktopShortcuts: true
+    CreateMenuShortcuts: true
+    FeatureName: OnBaseThickClient
+    InstallPath: E:\Program Files (x86)\Hyland\OnBase Client
+  MailServicesFeature:
+    FeatureName: MailServices
+    InstallPath: NOT_USED
+  ClientAPIFeature:
+    FeatureName: ThickClientAPILocal
+    InstallPath: NOT_USED
+  DCOMFeature:
+    ServiceMachine: OBPROC01
+    DCOMUser: AdminUser
+    FeatureName: Thick_API_DCOM
+    InstallPath: NOT_USED
+  Quiet: true
+  AdditionalArgs: 
+- ModuleName: Unity Scheduler x64
+  PackagePath: E:\Installs\Unity Scheduler x64\Hyland Unity Scheduler x64.msi
+  LogPath: E:\Installs\Unity Scheduler x64\Hyland Unity Scheduler x64.log
+  UnityServiceFeature:
+    FeatureName: UnitySchedulerService
+    InstallPath: E:\Program Files\Hyland\Services\Unity Scheduler
+  ConnectionStrings:
+  - ConnectionName: OnBase
+    Datasource: .\
+    Database: OnBase
+    UseIntegratedSecurity: false
+    Credentials:
+      Username: hsi
+      CredentialType: Database
+      BasesKey: V3mVrGIJqY8dC8q3OnOvCQ==
+    Encrypt: Optional
+    ProviderType: System_Data_SqlClient
+    AdditionalArguments: ''
+  ServiceInstances:
+  - InstalledDirectory: E:\Program Files\Hyland\Services\Unity Scheduler
+    DisplayName: Hyland Scheduler Service for Workflow Timers
+    Datasource: OnBase
+    TaskGroup: Workflow
+    SecondaryConfig: 
+    InstitutionId: 
+    SensitiveParamFilePath: 
+    ServiceName: Hyland Scheduler Service (Workflow)
+    ServiceDescription: Scheduler Service running workflow timers for OnBase
+    OnBaseCredentials:
+      Username: SERVICE
+      CredentialType: OnBase
+      BasesKey: g9U2YZ6wryI+R+DgwlNhigPqawWuiN6UfObaa7LKZeg=
+    WindowsCredentials:
+      Username: administrator
+      CredentialType: ActiveDirectory
+      BasesKey: +hQn8J1WLA3zAyUxh5M1YfEUQa4R8FzvGpt1vP75pGg=
+    ServiceStartOption: Auto
+  - InstalledDirectory: E:\Program Files\Hyland\Services\Unity Scheduler
+    DisplayName: Hyland Scheduler Service for Distribution Services
+    Datasource: OnBase
+    TaskGroup: Email
+    SecondaryConfig: 
+    InstitutionId: 
+    SensitiveParamFilePath: 
+    ServiceName: Hyland Scheduler Service (Email)
+    ServiceDescription: Scheduler Service running distribution services.
+    OnBaseCredentials:
+      Username: SERVICE
+      CredentialType: OnBase
+      BasesKey: g9U2YZ6wryI+R+DgwlNhigPqawWuiN6UfObaa7LKZeg=
+    WindowsCredentials:
+      Username: administrator
+      CredentialType: ActiveDirectory
+      BasesKey: +hQn8J1WLA3zAyUxh5M1YfEUQa4R8FzvGpt1vP75pGg=
+    ServiceStartOption: Auto
+  Wamcon:
+    WAMCONFiles: C:\Program Files (x86)\Hyland\Web Applications Management Console
+    CreateDesktopShortcuts: true
+    CreateMenuShortcuts: true
+  Quiet: true
+  AdditionalArgs: 
+- ModuleName: Diagnostics Components
+  PackagePath: E:\Installs\Diagnostics Components\Hyland Diagnostics Components.msi
+  LogPath: E:\Installs\Diagnostics Components\Hyland Diagnostics Components.log
+  DiagServiceFeature:
+    FeatureName: Diagnostics_Service
+    InstallPath: E:\Program Files (x86)\Hyland\Services\Diagnostics
+  DiagConsoleFeature:
+    CreateDesktopShortcuts: true
+    CreateMenuShortcuts: true
+    FeatureName: Diagnostics_Console
+    InstallPath: E:\Program Files (x86)\Hyland\Diagnostics Console
+  Quiet: true
+  AdditionalArgs: 
+- ModuleName: Friendly ModuleName for the module
+  PackagePath: Specify the path to the installer
+  LogPath: Where to log the msi installer log
+  Quiet: true
+  AdditionalArgs:
+  - List Additional Args
+  - Use the MRG or documentation for your product to see what's supported
