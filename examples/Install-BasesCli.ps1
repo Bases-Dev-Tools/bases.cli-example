@@ -1,5 +1,4 @@
-function Install-BasesCli {
-    
+function Install-DotNet {    
     # Will check if .NET is Installed and install it if not
     $dotnetVersion = "8.0"
     $dotnetPath = & "dotnet" --list-sdks 2>$null
@@ -25,7 +24,5 @@ function Install-BasesCli {
         else {
             Write-Output "Failed to install .NET $dotnetVersion."
         }
-    }
-    #Will install the latest version of Bases.Cli
-    dotnet tool install --global bases.cli
+    }    
 }
