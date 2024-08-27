@@ -21,7 +21,7 @@ The bases cli currently has native support for 10 modules and all their features
   >**Modules that are not natively supported can still be installed using the bases cli, but they will require manual configuration and setup. You will need to consult the module's documentation for more information on the MSI command line arguments needed to install them. With each release, more modules will become natively supported.
 
 
-# Installation guide the bases cli.
+# Installation guide for the bases cli.
 
 To get started with the bases cli, follow these simple steps:
 
